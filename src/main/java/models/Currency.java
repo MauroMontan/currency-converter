@@ -1,37 +1,41 @@
 package models;
 
-import java.io.Serializable;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Currency {
-    int page;
-    int totalPages;
-    List results;
 
-    public int getTotalPages() {
-        return totalPages;
+    private String result;
+    private String documentation;
+
+    @JsonProperty("base_code")
+    private String baseCode;
+    @JsonProperty("target_code")
+    private String targetCode;
+
+    @JsonProperty("conversion_rate")
+    private double conversionRate;
+
+    public Currency(){}
+
+
+    public String getResult() {
+        return result;
     }
 
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
+    public String getBaseCode() {
+        return baseCode;
     }
 
-    public List getResults() {
-        return results;
+
+    public String getTargetCode() {
+        return targetCode;
     }
 
-    public void setResults(List results) {
-        this.results = results;
+    public double getConversionRate() {
+        return conversionRate;
     }
 
-    public Currency(){
-
-    }
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
 }
