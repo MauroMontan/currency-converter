@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class HttpService {
 
-    public static void fetchData(String url){
+    public static String fetchData(String url){
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -19,10 +19,9 @@ public class HttpService {
                 .build();
 
         try {
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
-            System.out.println(response.body());
+            return response.body();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
