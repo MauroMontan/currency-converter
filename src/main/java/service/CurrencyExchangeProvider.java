@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import http.HttpService;
 import models.Code;
-import models.Codes;
+import models.CodeResponse;
 import models.Currency;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class CurrencyExchangeProvider {
     public List<Code> getCurrencyCodes() {
         if (cacheCodes == null){
             String res = HttpService.fetchData(buildQuery("codes"));
-            Codes codes = convertToJson(res,"2");
+            CodeResponse codes = convertToJson(res,"2");
             cacheCodes = codes.getSupportedCodes().stream().map(code -> new Code(code)).toList();
         }
 
@@ -59,9 +59,9 @@ public class CurrencyExchangeProvider {
         }
     }
 
-    private Codes convertToJson(String data,String max){
+    private CodeResponse convertToJson(String data,String max){
         try {
-            Codes currency = new ObjectMapper().readValue(data,Codes.class);
+            CodeResponse currency = new ObjectMapper().readValue(data,CodeResponse.class);
             return currency;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
