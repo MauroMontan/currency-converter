@@ -1,12 +1,8 @@
-import models.Currency;
-import service.CurrencyExchangeProvider;
+import cli.CLIHandler;
 
 public class Main {
     public static void main(String[] args) {
-        CurrencyExchangeProvider provider = new CurrencyExchangeProvider();
-        Currency c = provider.pairConvert("USD","MXN");
-
-        System.out.println(c.getConversionRate());
-
+        CLIHandler cli = new CLIHandler();
+        cli.bootstrap();
     }
 }
