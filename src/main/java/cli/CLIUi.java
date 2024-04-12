@@ -39,7 +39,7 @@ public class CLIUi {
         System.out.println("loading...");
     }
 
-    protected String currencyMessageParse(String from, String to, Currency currency ) {
-        return green + "Un " + from + " equivale a " + currency.getConversionRate() + " " + to + reset;
+    protected String currencyMessageParse(String from, String to, Currency currency,Double amount,  Double targeAmount ) {
+        return green +amount +  " " + from + " equivale a " + targeAmount + " " + to + reset;
     }
 }

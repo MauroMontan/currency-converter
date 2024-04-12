@@ -28,6 +28,10 @@ public class CurrencyExchangeProvider {
         return JSONUtils.encode(res, Currency.class);
     }
 
+    public Double quantityConverter(Currency currency, Double amount){
+        return currency.getConversionRate() * amount;
+    }
+
     public List<Code> getCurrencyCodes() {
         if (cacheCodes == null){
             String res = HttpService.fetchData(buildQuery("codes"));

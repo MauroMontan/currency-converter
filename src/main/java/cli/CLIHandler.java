@@ -52,6 +52,8 @@ public class CLIHandler extends CLIUi {
     private void convertMenu() {
         Scanner scan = new Scanner(System.in);
 
+        System.out.print("Ingresa el monto a convertir:");
+        Double amount = scan.nextDouble();
         System.out.print("Ingresa la moneda que deseas convertir:  ");
         String from = scan.next();
         System.out.print("A que moneda quieres convertir:  ");
@@ -61,8 +63,9 @@ public class CLIHandler extends CLIUi {
         Currency c = provider.pairConvert(from,to);
         var baseCode = provider.getCurrencyName(c.getBaseCode());
         var targetCode = provider.getCurrencyName(c.getTargetCode());
+        var targetAmount = provider.quantityConverter(c,amount);
 
-        System.out.println( currencyMessageParse(baseCode,targetCode,c) );
+        System.out.println( currencyMessageParse(baseCode,targetCode,c,amount,targetAmount) );
         mainMenu();
     }
 
