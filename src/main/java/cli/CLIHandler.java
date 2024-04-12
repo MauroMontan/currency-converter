@@ -16,7 +16,7 @@ public class CLIHandler extends CLIUi {
          provider = new CurrencyExchangeProvider();
     }
 
-    private void showAvailableCurrency(){
+    private void availableCurrencyBord(){
         loading();
         List<Code> codes = provider.getCurrencyCodes();
         for (Code code : codes) {
@@ -40,8 +40,8 @@ public class CLIHandler extends CLIUi {
 
 
             switch (opt){
-                case 1 -> showAvailableCurrency();
-                case 2 -> convert();
+                case 1 -> availableCurrencyBord();
+                case 2 -> convertMenu();
                 default -> System.out.println("Ingresa una opción valida");
             }
         }
@@ -49,7 +49,7 @@ public class CLIHandler extends CLIUi {
         while (opt != 3);
     }
 
-    private void convert() {
+    private void convertMenu() {
         Scanner scan = new Scanner(System.in);
 
         System.out.print("Ingresa la moneda que deseas convertir:  ");
