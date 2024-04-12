@@ -6,6 +6,7 @@ import http.HttpService;
 import models.Code;
 import models.CodeResponse;
 import models.Currency;
+import utils.JSONUtils;
 
 import java.util.List;
 
@@ -24,14 +25,13 @@ public class CurrencyExchangeProvider {
 
         String res = HttpService.fetchData(buildQuery("pair",from ,to));
 
-        return convertToJson(res);
-
+        return JSONUtils.encode(res, Currency.class);
     }
 
     public List<Code> getCurrencyCodes() {
         if (cacheCodes == null){
             String res = HttpService.fetchData(buildQuery("codes"));
-            CodeResponse codes = convertToJson(res,"2");
+            CodeResponse codes = JSONUtils.encode(res, CodeResponse.class);
             cacheCodes = codes.getSupportedCodes().stream().map(code -> new Code(code)).toList();
         }
 
@@ -49,23 +49,4 @@ public class CurrencyExchangeProvider {
     private String buildQuery(String ...query){
         return BASE_URI + "/" + API_KEY +"/"+ String.join("/",query);
     }
-
-    private Currency convertToJson(String data){
-        try {
-            Currency currency = new ObjectMapper().readValue(data,Currency.class);
-            return currency;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private CodeResponse convertToJson(String data,String max){
-        try {
-            CodeResponse currency = new ObjectMapper().readValue(data,CodeResponse.class);
-            return currency;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
